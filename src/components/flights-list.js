@@ -25,7 +25,18 @@ class FlightsList extends React.PureComponent {
     this.setState({ ...this.state, [e.target.name]: e.target.value });
   };
   handleSearch = e => {
-    this.props.getSearchFlights();
+    const { destinationCity, sourceCity, returnDate, travelDate } = this.state;
+    const model = {
+      destinationCity,
+      sourceCity,
+      returnDate,
+      travelDate
+    };
+
+    this.props.getSearchFlights(model);
+  };
+  handleReset = e => {
+    this.props.getFlights();
   };
   render() {
     const {
@@ -104,7 +115,11 @@ class FlightsList extends React.PureComponent {
               </button>
             </div>
             <div>
-              <button type="button" className="btn btn-default">
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={this.handleReset}
+              >
                 Reset
               </button>
             </div>

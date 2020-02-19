@@ -9,10 +9,18 @@ function* getFlightsWatcher() {
   yield takeLatest(FlightConstants.Get_Request_Flights, getFlights);
 }
 
-function* getSearchFlights() {
+function* getSearchFlights(model) {
+  debugger;
+  // const test = model;
+  var result = lstFlights.filter(function(item, i) {
+    return (
+      item["destinationCity"] == model.model.destinationCity &&
+      item["sourceCity"] == model.model.sourceCity
+    );
+  });
   yield put({
-    type: FlightConstants.Get_Success_Search_Flights,
-    result: lstFlights
+    type: FlightConstants.Get_Success_Flights,
+    result: result
   });
 }
 
