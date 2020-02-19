@@ -1,7 +1,6 @@
 import { FlightConstants } from "../constants";
 
 export function FlightReducer(state = {}, action) {
-  debugger;
   switch (action.type) {
     case FlightConstants.Get_Request_Flights:
       return {

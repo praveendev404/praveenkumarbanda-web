@@ -10,6 +10,8 @@ class FlightsList extends React.PureComponent {
     this.state = {
       travelDate: undefined,
       returnDate: undefined,
+      sourceCity: "",
+      destinationCity: "",
       lstCities: ["Hyderabad", "Delhi", "Chenni", "Bengaluru"]
     };
   }
@@ -19,38 +21,58 @@ class FlightsList extends React.PureComponent {
   handleDayChange = e => {
     this.setState({ ...this.state, [e.target.name]: e.target.value });
   };
+  handleChange = e => {
+    this.setState({ ...this.state, [e.target.name]: e.target.value });
+  };
   render() {
-    const { lstCities, travelDate, returnDate } = this.state;
+    const {
+      lstCities,
+      travelDate,
+      returnDate,
+      sourceCity,
+      destinationCity
+    } = this.state;
     const { flights } = this.props;
-    debugger;
     return (
       <div>
         <div>
           <div className="search-bar">
-            <div class="form-group">
-              <label for="sel1">Source City</label>
-              <select class="form-control" id="sel1">
+            <div className="form-group">
+              <label htmlFor="sel1">Source City</label>
+              <select
+                className="form-control"
+                id="sel1"
+                name="sourceCity"
+                value={sourceCity}
+                onChange={this.handleChange}
+              >
                 <option key="">--Select Source City--</option>
                 {lstCities.map(item => (
-                  <option key="item" value={item}>
+                  <option key={item} value={item}>
                     {item}
                   </option>
                 ))}
               </select>
             </div>
-            <div class="form-group">
-              <label for="sel1">Destination City</label>
-              <select class="form-control" id="sel1">
+            <div className="form-group">
+              <label htmlFor="sel1">Destination City</label>
+              <select
+                className="form-control"
+                id="sel1"
+                name="destinationCity"
+                value={destinationCity}
+                onChange={this.handleChange}
+              >
                 <option key="">--Select Destination City--</option>
                 {lstCities.map(item => (
-                  <option key="item" value={item}>
+                  <option key={item} value={item}>
                     {item}
                   </option>
                 ))}
               </select>
             </div>
-            <div class="form-group">
-              <label for="sel1">Travel Date</label>
+            <div className="form-group">
+              <label htmlFor="sel1">Travel Date</label>
               <DayPickerInput
                 name="travelDate"
                 placeholder="DD/MM/YYYY"
@@ -59,8 +81,8 @@ class FlightsList extends React.PureComponent {
                 onDayChange={this.handleDayChange}
               />
             </div>
-            <div class="form-group">
-              <label for="sel1">Return Date</label>
+            <div className="form-group">
+              <label htmlFor="sel1">Return Date</label>
               <DayPickerInput
                 name="returnDate"
                 placeholder="DD/MM/YYYY"
@@ -86,31 +108,35 @@ class FlightsList extends React.PureComponent {
             cellSpacing="0"
             className="table-bordered"
           >
-            <tr>
-              <th>Flight Number</th>
-              <th>Airline Name</th>
-              <th>Source City</th>
-              <th>Destination City</th>
-              <th>Departure time</th>
-              <th>Arrival Time</th>
-              <th>Duration</th>
-              <th>No. Of Stops</th>
-              <th>Price</th>
-            </tr>
-            {flights &&
-              flights.map(item => (
-                <tr key={item.id}>
-                  <td>{item.flightNumber}</td>
-                  <td>{item.airlineName}</td>
-                  <td>{item.sourceCity}</td>
-                  <td>{item.destinationCity}</td>
-                  <td>{item.departureTime.toString()}</td>
-                  <td>{item.arrivaltime.toString()}</td>
-                  <td>{item.duration}</td>
-                  <td>{item.noOfStops}</td>
-                  <td>{item.price}</td>
-                </tr>
-              ))}
+            <thead>
+              <tr>
+                <th>Flight Number</th>
+                <th>Airline Name</th>
+                <th>Source City</th>
+                <th>Destination City</th>
+                <th>Departure time</th>
+                <th>Arrival Time</th>
+                <th>Duration</th>
+                <th>No. Of Stops</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {flights &&
+                flights.map(item => (
+                  <tr key={item.id}>
+                    <td>{item.flightNumber}</td>
+                    <td>{item.airlineName}</td>
+                    <td>{item.sourceCity}</td>
+                    <td>{item.destinationCity}</td>
+                    <td>{item.departureTime.toString()}</td>
+                    <td>{item.arrivaltime.toString()}</td>
+                    <td>{item.duration}</td>
+                    <td>{item.noOfStops}</td>
+                    <td>{item.price}</td>
+                  </tr>
+                ))}
+            </tbody>
           </table>
           <div>Total</div>
         </div>
