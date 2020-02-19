@@ -2,7 +2,7 @@ import React from "react";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { getFlights } from "../redux-modules/actions";
+import { getFlights, getSearchFlights } from "../redux-modules/actions";
 
 class FlightsList extends React.PureComponent {
   constructor() {
@@ -23,6 +23,9 @@ class FlightsList extends React.PureComponent {
   };
   handleChange = e => {
     this.setState({ ...this.state, [e.target.name]: e.target.value });
+  };
+  handleSearch = e => {
+    this.props.getSearchFlights();
   };
   render() {
     const {
@@ -92,7 +95,11 @@ class FlightsList extends React.PureComponent {
               />
             </div>
             <div>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={this.handleSearch}
+              >
                 Search
               </button>
             </div>
@@ -148,7 +155,8 @@ class FlightsList extends React.PureComponent {
 const mapDispatchtoProps = dispatch =>
   bindActionCreators(
     {
-      getFlights: getFlights
+      getFlights: getFlights,
+      getSearchFlights: getSearchFlights
     },
     dispatch
   );

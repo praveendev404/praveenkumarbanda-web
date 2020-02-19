@@ -9,8 +9,22 @@ function* getFlightsWatcher() {
   yield takeLatest(FlightConstants.Get_Request_Flights, getFlights);
 }
 
+function* getSearchFlights() {
+  yield put({
+    type: FlightConstants.Get_Success_Search_Flights,
+    result: lstFlights
+  });
+}
+
+function* getSearchFlightsWatcher() {
+  yield takeLatest(
+    FlightConstants.Get_Request_Search_Flights,
+    getSearchFlights
+  );
+}
+
 export default function* rootSaga() {
-  yield all([getFlightsWatcher()]);
+  yield all([getFlightsWatcher(), getSearchFlightsWatcher()]);
 }
 var nowDate = new Date();
 const lstFlights = [
