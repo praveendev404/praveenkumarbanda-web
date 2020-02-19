@@ -160,7 +160,7 @@ class FlightsList extends React.PureComponent {
                 ))}
             </tbody>
           </table>
-          <div>Total</div>
+          <div>Total: {flights && flights.length}</div>
         </div>
       </div>
     );
